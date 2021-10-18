@@ -1,0 +1,31 @@
+
+<br>
+<h3 class="display-5 mx-4" >Listado de Cursos del Alumnado </h3>
+<hr>
+<div class="derecha">
+    <button type="button" (click)="redireccionar()"
+    class="btn btn-light">Regresar</button>
+</div>
+
+<div class="table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl">
+    <table class="table table-hover table-dark">
+        <thead>
+          <tr>
+            <th scope="col">NOMBRES Y APELLIDOS</th>
+            <th scope="col">CURSO</th>
+            <th scope="col">PROMEDIO FINAL</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="cursoList?.length === 0 ">
+                <td colspan="10" style="text-align: center;" ><span>No hay datos para mostrar</span></td>
+            </tr>
+            <tr *ngFor="let curso of cursoList" >
+                <td>{{curso.AL_NOMBRES + ' ' + curso.AL_APELLIDOS}}</td>
+                <td>{{curso.CU_DESCRIPCION}}</td>
+                <td>{{curso.NO_PROMEDIO_FINAL}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>

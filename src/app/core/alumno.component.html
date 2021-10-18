@@ -1,0 +1,115 @@
+<br>
+<h3 class="display-5 mx-4" >Listado de Estudiantes</h3>
+<hr>
+<ngb-alert style="margin-top: -12.5px;" *ngIf="alertaPrincipal.mostrarAlerta" 
+[type]="alertaPrincipal.tipoDeAlerta" (closed)="alertaPrincipal.mostrarAlerta = false">{{alertaPrincipal.mensajeAlerta}}</ngb-alert>
+<br>
+
+<div class="derecha">
+    <button type="button" (click)="redireccionar('alumnos/crear')"
+    class="btn btn-light">Crear</button>
+</div>
+
+<div class="table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl">
+    <table class="table table-hover table-dark">
+        <thead>
+          <tr>
+            <th scope="col">NOMBRES Y APELLIDOS</th>
+            <th scope="col">ESTADO</th>
+            <th scope="col">FECHA DE NACIMIENTO</th>
+            <th scope="col">SEXO</th>
+            <th scope="col">ACCIONES</th>
+    
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="AlumnoList?.length === 0 ">
+                <td colspan="10" style="text-align: center;" ><span>No hay datos para mostrar</span></td>
+            </tr>
+            <tr *ngFor="let alumno of AlumnoList" >
+                <td>{{alumno.AL_NOMBRES + ' ' + alumno.AL_APELLIDOS}}</td>
+                <td>{{(alumno.AL_ESTADO == 1)?'ACTIVO':'INACTIVO'}}</td>
+                <td>{{alumno.AL_FECHA_NAC | date:'dd/MM/yyyy'}}</td>
+                <td>{{(alumno.AL_SEXO == 'M')?'MASCULINO':'FEMENINA'}}</td>
+                <td>
+                    <span (click)="redireccionar('alumnos/cursos/'+alumno.AL_ID)"
+                        class="btn btn-rounded">
+                        <i ngbTooltip="Ver cursos" style="color:#fff;"  class="fa fa-leanpub" 
+                        aria-hidden="true" ></i>
+                    </span>
+        
+                    <span (click)="redireccionar('alumnos/editar/'+alumno.AL_ID)"
+                        class="btn btn-rounded">
+                        <i ngbTooltip="Editar" style="color:#fff;"  class="fa fa-pencil-square-o" 
+                        aria-hidden="true" ></i>
+                    </span>
+        
+                    <span (click)="abrirModalConfirmacion(alumno.AL_ID)"
+                        class="btn btn-rounded">
+                        <i ngbTooltip="Eliminar" style="color:#fff;"  class="fa fa-trash-o" 
+                        aria-hidden="true" ></i>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+
+
+
+<ng-template #modalConfirmacionEliminar let-modal>
+    <ngb-alert style="margin-top: -12.5px;" *ngIf="alertaModalEliminar.mostrarAlerta" 
+    [type]="alertaModalEliminar.tipoDeAlerta" (closed)="alertaModalEliminar.mostrarAlerta = false">{{alertaModalEliminar.mensajeAlerta}}</ngb-alert>
+    <div class="modal-header" style="color: #000000;">
+        <h5 class="modal-title" id="exampleModalLongTitle">¿Estás seguro de realizar la acción de eliminar?</h5>
+        <button type="button" class="close" 
+        (click)="modal.dismiss(); alertaModalEliminar.mostrarAlerta = false" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body"   style="color: #000000;">
+        <span> Al eliminar el dato puede afectar otros datos.</span>
+    </div>
+    <div style="margin-top: 15px;" class="row">
+        <div class="col-xl-12">
+            <div *ngIf="carga" class="progress" style="height:.1rem">
+                <ngb-progressbar class="indeterminate" type="primary" height=".1rem" [value]="100" [striped]="true" [animated]="true"></ngb-progressbar>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button  style="color: #ffffff;" type="button" 
+        (click)="modal.dismiss();alertaModalEliminar.mostrarAlerta = false" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+        <button type="button" (click)="eliminarAlumno()" class="btn btn-success">Confirmar</button>
+    </div>
+<ng-template>
+
+
+<ng-template #modalCrear let-modal>
+    <ngb-alert style="margin-top: -12.5px;" *ngIf="alertaModalEliminar.mostrarAlerta" 
+    [type]="alertaModalEliminar.tipoDeAlerta" (closed)="alertaModalEliminar.mostrarAlerta = false">{{alertaModalEliminar.mensajeAlerta}}</ngb-alert>
+    <div class="modal-header" style="color: #000000;">
+        <h5 class="modal-title" id="exampleModalLongTitle">¿Estás seguro de realizar la acción de eliminar?</h5>
+        <button type="button" class="close" 
+        (click)="modal.dismiss(); alertaModalEliminar.mostrarAlerta = false" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body"   style="color: #000000;">
+        <span> Al eliminar el dato puede afectar otros datos.</span>
+    </div>
+    <div style="margin-top: 15px;" class="row">
+        <div class="col-xl-12">
+            <div *ngIf="carga" class="progress" style="height:.1rem">
+                <ngb-progressbar class="indeterminate" type="primary" height=".1rem" [value]="100" [striped]="true" [animated]="true"></ngb-progressbar>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button  style="color: #ffffff;" type="button" 
+        (click)="modal.dismiss();alertaModalEliminar.mostrarAlerta = false" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+        <button type="button" (click)="eliminarAlumno()" class="btn btn-success">Confirmar</button>
+    </div>
+<ng-template>
+    

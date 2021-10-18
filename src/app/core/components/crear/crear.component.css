@@ -1,0 +1,6 @@
+:host ::ng-deep .card{
+    background: #222222;
+    background: #16222A; 
+    background: -webkit-linear-gradient(to top, #16222A , #3A6073);
+    background: linear-gradient(to top, #16222A , #3A6073); 
+}

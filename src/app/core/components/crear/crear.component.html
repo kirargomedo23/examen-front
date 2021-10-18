@@ -1,0 +1,159 @@
+<br>
+<h3 class="display-5 mx-4 " >Nuevo registro</h3>
+<hr>
+<div class="derecha">
+    <button type="button" (click)="redireccionar()"
+    class="btn btn-light">Regresar</button>
+</div>
+<br>
+
+<h2 class="display-5 mx-4 h2" >Alumnado</h2>
+<hr>
+<div class="container">
+    <form>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Nombres</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Apellidos</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Fecha de Nacimiento</label>
+                    <input type="date" class="form-control" [max]="hoy"
+                    id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Sexo</label>
+                    <div class="form-check" >
+                        <input class="form-check-input"  (change)="eventChangeFemenino()" 
+                        [disabled]="disabledMasculino"
+                        type="checkbox" value="" id="defaultCheck1">
+                        <label class="form-check-label" for="defaultCheck1">
+                          Masculino
+                        </label>
+                    </div>
+                    <div class="form-check" >
+                        <input class="form-check-input" (change)="eventChangeMasculino()"
+                        [disabled]="disabledFemenino"
+                        type="checkbox" value="" id="defaultCheck1">
+                        <label class="form-check-label" for="defaultCheck1">
+                          Femenina
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<br><br>
+<h2 class="display-5 mx-4 h2">Cursos y Notas</h2>
+<hr>
+<br>
+<div class="card-design" style="color:rgb(255, 255, 255);" *ngFor="let curso of cursoList">
+    <div class="card border-0 ">
+        <h5 class="card-header" (click)="setCollapsed(curso);" 
+            style="cursor: pointer;" [attr.aria-expanded]="!curso['IS_COLLAPSED']" aria-controls="collapseExample">
+            {{curso.CU_DESCRIPCION}} <em class="fa fa-chevron-down"></em>
+        </h5>
+        <div class="card-body" id="collapseExample" [ngbCollapse]="curso['IS_COLLAPSED']">
+            <form [formGroup]="notaForm">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-6 my-3">
+                        <label for="tipoEstudioInput">Nota Práctica N1</label>
+                        <input type="text" class="form-control" formControlName="practicaN1_form">
+                        <div *ngIf="practicaN1_form.invalid && (practicaN1_form.dirty || practicaN1_form.touched)" class="my-1" style="color: rgb(255, 255, 255);">
+                            <div *ngIf="practicaN1_form.errors.required">
+                              * El campo es requerido.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-6 my-3">
+                        <label for="lugarEstudioInput">Nota Práctica N2</label>
+                        <input type="text" class="form-control" formControlName="practicaN2_form">
+                        <div *ngIf="practicaN2_form.invalid && (practicaN2_form.dirty || practicaN2_form.touched)" class="my-1" style="color: rgb(255, 255, 255);">
+                            <div *ngIf="practicaN2_form.errors.required">
+                              * El campo es requerido.
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="col-sm-12 col-lg-6 my-3">
+                        <label for="fechaInicioInput">Nota Práctica N3</label>
+                        <input type="text" class="form-control" formControlName="practicaN3_form">
+                        <div *ngIf="practicaN3_form.invalid && (practicaN3_form.dirty || practicaN3_form.touched)" class="my-1" style="color: rgb(255, 255, 255);">
+                            <div *ngIf="practicaN3_form.errors.required">
+                              * El campo es requerido.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-6 my-3">
+                        <label for="fechaFinInput">Nota Parcial</label>
+                        <input type="text" class="form-control" formControlName="parcial_form">
+                        <div *ngIf="parcial_form.invalid && (parcial_form.dirty || parcial_form.touched)" class="my-1" style="color: rgb(255, 255, 255);">
+                            <div *ngIf="parcial_form.errors.required">
+                                * El campo es requerido.
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="col-sm-12 col-lg-6 my-3">
+                        <label for="descripcionInput">Nota Final</label>
+                        <input type="text" class="form-control" formControlName="final_form">
+                        <div *ngIf="final_form.invalid && (final_form.dirty || final_form.touched)" class="my-1" style="color: rgb(255, 255, 255);">
+                            <div *ngIf="final_form.errors.required">
+                                * El campo es requerido.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<br><br>
+
+<div class="centrar mx-4">
+    <button type="button" (click)="abrirModalCrear()"
+    class="btn btn-light">Crear</button>
+</div>
+<br><br>
+
+
+<ng-template #modalCrear let-modal>
+    <div class="modal-header" style="color:#000;" >
+        <h5 class="modal-title" id="exampleModalLongTitle">Crear nuevo registro</h5>
+        <hr>
+        <button type="button" class="close" 
+        (click)="modal.dismiss()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body"  style="color:#000;"  >
+        <span>¿Estás seguro de crear el registro?</span>
+    </div>
+    <div style="margin-top: 15px;" class="row">
+        <div class="col-xl-12">
+            <div *ngIf="carga" class="progress" style="height:.1rem">
+                <ngb-progressbar class="indeterminate" type="primary" height=".1rem" [value]="100" [striped]="true" [animated]="true"></ngb-progressbar>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button  style="color: #ffffff;" type="button" (click)="modal.dismiss()"
+        class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+        <button type="button" (click)="crear()" class="btn btn-success">Confirmar</button>
+    </div>
+<ng-template>

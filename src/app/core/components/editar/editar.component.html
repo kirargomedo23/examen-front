@@ -1,0 +1,95 @@
+
+<br>
+<h3 class="display-5 mx-4" >Edición de estudiante</h3>
+<hr>
+<div class="derecha">
+    <button type="button" (click)="redireccionar('alumnos')"
+    class="btn btn-light">Regresar</button>
+</div>
+
+
+<div class="container">
+    <form [formGroup]="alumnoForm">
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Nombres</label>
+                    <input type="email" class="form-control"  formControlName="nombres_form" aria-describedby="emailHelp">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Apellidos</label>
+                    <input type="email" class="form-control"  formControlName="apellidos_form" aria-describedby="emailHelp">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Fecha de Nacimiento</label>
+                    <input type="date" class="form-control" [max]="hoy"
+                    formControlName="date_form" aria-describedby="emailHelp">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Sexo</label>
+                    <div class="form-check" *ngIf="alumno" >
+                        <input class="form-check-input"  (change)="eventChangeFemenino()" 
+                        [disabled]="disabledMasculino"  [checked]="disabledFemenino"
+                        type="checkbox" value="" id="defaultCheck1">
+                        <label class="form-check-label" for="defaultCheck1">
+                          Masculino
+                        </label>
+                    </div>
+                    <div class="form-check" *ngIf="alumno">
+                        <input class="form-check-input" (change)="eventChangeMasculino()"
+                        [disabled]="disabledFemenino"     [checked]="disabledMasculino"
+                        type="checkbox" value="" id="defaultCheck1">
+                        <label class="form-check-label" for="defaultCheck1">
+                          Femenino
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<br><br>
+<div class="centrar mx-4">
+    <button type="button" (click)="abrirModalEditar()"
+    class="btn btn-light">Guardar cambios</button>
+</div>
+<br><br>
+
+
+
+<ng-template #modalConfirmar let-modal>
+    <div class="modal-header" style="color:#000;" >
+        <h5 class="modal-title" id="exampleModalLongTitle">Confirmación</h5>
+        <hr>
+        <button type="button" class="close" 
+        (click)="modal.dismiss()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body"  style="color:#000;"  >
+        <span>¿Estás seguro de guardar los cambios?</span>
+    </div>
+    <div style="margin-top: 15px;" class="row">
+        <div class="col-xl-12">
+            <div *ngIf="carga" class="progress" style="height:.1rem">
+                <ngb-progressbar class="indeterminate" type="primary" height=".1rem" [value]="100" [striped]="true" [animated]="true"></ngb-progressbar>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button  style="color: #ffffff;" type="button" (click)="modal.dismiss()"
+        class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+        <button type="button" (click)="editar()" class="btn btn-success">Confirmar</button>
+    </div>
+<ng-template>
+
+
